@@ -1,0 +1,8 @@
+komonjo:
+  image: hkdnet/komonjo
+  ports:
+    - "80:80"
+  environment:
+    - RACK_ENV=production
+    - KOMONJO_SLACK_API_TOKEN=<%=ENV['KOMONJO_SLACK_API_TOKEN']%>
+  command: rackup -p 80
