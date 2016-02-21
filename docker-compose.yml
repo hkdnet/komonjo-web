@@ -3,6 +3,5 @@ komonjo:
   ports:
     - "80:80"
   environment:
-    - RACK_ENV=production
-    - KOMONJO_SLACK_API_TOKEN=<%=ENV['KOMONJO_SLACK_API_TOKEN']%>
-  command: rackup -p 80
+    - RACK_ENV=development
+  command: rackup -p 80 -o 0.0.0.0

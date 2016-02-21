@@ -19,7 +19,18 @@ class App < Sinatra::Base
     @client ||= Komonjo::Client.new(token: api_token)
   end
 
+  def allow_cross_access(res)
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    res.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    res.headers['Access-Control-Allow-Methods'] = 'GET'
+  end
+
   get '/api/channels' do
+    headers(
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Allow-Headers' => 'Content-Type',
+      'Access-Control-Allow-Methods' => 'GET'
+    )
     client.channels.map(&:name).to_json
   end
 

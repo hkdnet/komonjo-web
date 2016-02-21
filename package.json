@@ -23,6 +23,7 @@
     "bluebird": "^3.1.1",
     "express": "^4.13.4",
     "jade": "^1.11.0",
+    "jquery": "^2.2.0",
     "lodash": "^4.0.1",
     "npm-run-all": "^1.5.0",
     "power-assert": "^1.2.0",
