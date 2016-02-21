@@ -19,12 +19,6 @@ class App < Sinatra::Base
     @client ||= Komonjo::Client.new(token: api_token)
   end
 
-  def allow_cross_access(res)
-    res.headers['Access-Control-Allow-Origin'] = '*'
-    res.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    res.headers['Access-Control-Allow-Methods'] = 'GET'
-  end
-
   get '/api/channels' do
     headers(
       'Access-Control-Allow-Origin' => '*',
@@ -35,6 +29,11 @@ class App < Sinatra::Base
   end
 
   get '/api/messages' do
+    headers(
+      'Access-Control-Allow-Origin' => '*',
+      'Access-Control-Allow-Headers' => 'Content-Type',
+      'Access-Control-Allow-Methods' => 'GET'
+    )
     channel_name = params[:channel_name]
     client.messages(channel_name).to_json
   end
