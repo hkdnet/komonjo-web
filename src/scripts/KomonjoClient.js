@@ -17,6 +17,13 @@ class KomonjoClient {
     })
   }
 
+  messages(channelName) {
+    return $.get({
+      url: this.url + '/api/messages?channel_name=' + channelName,
+      dataType: 'JSON'
+    })
+  }
+
   normalizeUrl(url) {
     return url.replace(/\/$/, '').replace(/\/api$/i, '')
   }
