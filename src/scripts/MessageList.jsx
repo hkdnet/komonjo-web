@@ -7,12 +7,14 @@ class MessageList extends React.Component {
     this.action = this.props.action;
     this.state = {
       messages: this.store.getMessages(),
-      selectedChannel: this.store.getSelectedChannel()
+      selectedChannel: this.store.getSelectedChannel(),
+      isWaitingMessage: this.store.getIsWaitingMessage()
     };
     this.store.on("CHANGE", ()=> {
       this.setState({
         messages: this.store.getMessages(),
-        selectedChannel: this.store.getSelectedChannel()
+        selectedChannel: this.store.getSelectedChannel(),
+        isWaitingMessage: this.store.getIsWaitingMessage()
       });
     });
   }
@@ -20,10 +22,17 @@ class MessageList extends React.Component {
   render() {
     return(
       <div>
-        {this.state.selectedChannel}
-        <ul>
-          {this.messageDoms()}
-        </ul>
+        <div>
+          {this.state.selectedChannel}
+        </div>
+        <div className={!this.state.isWaitingMessage && "hidden"}>
+          <i className="fa fa-spinner fa-spin fa-3x" />
+        </div>
+        <div className={this.state.isWaitingMessage && "hidden"}>
+          <ul>
+            {this.messageDoms()}
+          </ul>
+        </div>
       </div>
     );
   }

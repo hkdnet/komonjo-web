@@ -17,7 +17,9 @@ class ChannelList extends React.Component {
   render() {
     return(
       <select ref="channel" onChange={this.onChangeHandler.bind(this)}>
-        <option key={-1} value="---">---</option>
+        <option key={-1} value={this.store.getDefaultChannel()}>
+          {this.store.getDefaultChannel()}
+        </option>
         {this.channelDoms()}
       </select>
     );
