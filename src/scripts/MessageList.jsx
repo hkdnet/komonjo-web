@@ -1,4 +1,5 @@
 const React = require('react');
+const Message = require('./Message.jsx')
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class MessageList extends React.Component {
           <i className="fa fa-spinner fa-spin fa-3x" />
         </div>
         <div className={this.state.isWaitingMessage && "hidden"}>
-          <ul>
+          <ul className="messages">
             {this.messageDoms()}
           </ul>
         </div>
@@ -40,9 +41,11 @@ class MessageList extends React.Component {
   messageDoms() {
     return this.state.messages.map((e, i)=> {
       return (
-        <li key={i}>
-          {e.text}
-        </li>
+        <Message key={i}
+                 iconUrl={e.user.profile.image_24}
+                 name={e.user.name}
+                 content={e.text}
+                 />
       )
     })
   }

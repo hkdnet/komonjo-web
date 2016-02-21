@@ -1,6 +1,18 @@
-#container {
+body {
   background: #DDD;
 }
 .hidden {
   display: none;
+}
+.message {
+  border: 1px solid gray;
+  padding: 4px;
+  background: #EEE;
+}
+ul {
+  padding: 0;
+}
+
+.messages {
+  list-style: none;
 }
