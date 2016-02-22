@@ -47,8 +47,10 @@ class ChannelList extends React.Component {
       }
       return (
         <div key={i}
+             data-idx={i}
              className={className}
-             onClick={this.onChannelClickHandler.bind(this)}>
+             onClick={this.onChannelClickHandler.bind(this)}
+             onMouseOver={this.onChannelMouseOverHandler.bind(this)}>
           {e.name}
         </div>
       )
@@ -101,6 +103,10 @@ class ChannelList extends React.Component {
     this.action.changeIsSearchingChannel(false);
     this.action.changeSelectedChannel(channel);
     this.action.changeChannelSearchKeyword(channel);
+  }
+  onChannelMouseOverHandler(e) {
+    let idx = e.target.getAttribute('data-idx') - 0;
+    this.action.changeChannelSearchSelectedIndex(idx)
   }
 }
 
