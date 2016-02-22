@@ -9,14 +9,16 @@ class ChannelList extends React.Component {
       channels: this.store.getChannels(),
       channelSearchKeyword: this.store.getChannelSearchKeyword(),
       selectedChannel: this.store.getSelectedChannel(),
-      isSearchingChannel: this.store.getIsSearchingChannel()
+      isSearchingChannel: this.store.getIsSearchingChannel(),
+      channelSearchSelectedIndex: this.store.getChannelSearchSelectedIndex()
     };
     this.store.on("CHANGE", ()=> {
       this.setState({
         channels: this.store.getChannels(),
         channelSearchKeyword: this.store.getChannelSearchKeyword(),
         selectedChannel: this.store.getSelectedChannel(),
-        isSearchingChannel: this.store.getIsSearchingChannel()
+        isSearchingChannel: this.store.getIsSearchingChannel(),
+        channelSearchSelectedIndex: this.store.getChannelSearchSelectedIndex()
       });
     })
   }
@@ -39,8 +41,13 @@ class ChannelList extends React.Component {
 
   channelDoms() {
     return this.state.channels.map((e, i)=> {
+      let className = "searchResult";
+      if(i == this.store.channelSearchSelectedIndex) {
+        className += " selected";
+      }
       return (
-        <div key={i} className="searchResult"
+        <div key={i}
+             className={className}
              onClick={this.onChannelClickHandler.bind(this)}>
           {e.name}
         </div>
@@ -61,13 +68,31 @@ class ChannelList extends React.Component {
     this.action.changeChannelSearchKeyword(e.target.value);
   }
   onSearchBoxKeyDownHandler(e) {
-    // Enter
-    if(e.keyCode == 13 && this.state.channels.length == 1) {
-      let channel = this.state.channels[0].name;
-      this.action.changeIsSearchingChannel(false);
-      this.action.changeSelectedChannel(channel);
-      this.action.changeChannelSearchKeyword(channel);
-      this.refs.searchBox.blur();
+    let idx;
+    switch(e.keyCode) {
+      case 13: // Enter
+        idx = this.state.channelSearchSelectedIndex;
+        let channel = this.state.channels[idx].name;
+        this.action.changeIsSearchingChannel(false);
+        this.action.changeSelectedChannel(channel);
+        this.action.changeChannelSearchKeyword(channel);
+        break;
+      case 38: // UP
+        idx = this.state.channelSearchSelectedIndex - 1;
+        if (idx < 0) {
+          idx = 0;
+        }
+        this.action.changeChannelSearchSelectedIndex(idx)
+        this.action.changeIsSearchingChannel(true);
+        break;
+      case 40: // DOWN
+        idx = this.state.channelSearchSelectedIndex + 1;
+        if (idx > this.state.channels.length - 1) {
+          idx = this.state.channels.length - 1;
+        }
+        this.action.changeChannelSearchSelectedIndex(idx)
+        this.action.changeIsSearchingChannel(true);
+        break;
     }
   }
 
@@ -76,7 +101,6 @@ class ChannelList extends React.Component {
     this.action.changeIsSearchingChannel(false);
     this.action.changeSelectedChannel(channel);
     this.action.changeChannelSearchKeyword(channel);
-    this.refs.searchBox.blur();
   }
 }
 

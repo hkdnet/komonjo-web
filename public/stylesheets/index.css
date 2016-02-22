@@ -37,3 +37,6 @@ body {
   background: #EEE;
   border: 0 1px 1px 1px gray solid;
 }
+.searchResult.selected {
+  background: blue;
+}

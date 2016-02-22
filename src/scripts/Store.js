@@ -17,6 +17,8 @@ class Store extends EventEmitter {
     dispatcher.on("changeSelectedChannel", this.onChangeSelectedChannel.bind(this));
     this.channelSearchKeyword = this.getDefaultChannel();
     dispatcher.on("changeChannelSearchKeyword", this.onChangeChannelSearchKeyword.bind(this));
+    this.channelSearchSelectedIndex = 0;
+    dispatcher.on("changeChannelSearchSelectedIndex", this.onChannelSearchSelectedIndex.bind(this));
     this.messages = [];
     dispatcher.on("changeMessages", this.onChangeMessages.bind(this));
     this.isWaitingMessage = false;
@@ -55,6 +57,14 @@ class Store extends EventEmitter {
   }
   onChangeChannelSearchKeyword(keyword) {
     this.channelSearchKeyword = keyword;
+    this.emit("CHANGE");
+  }
+
+  getChannelSearchSelectedIndex() {
+    return this.channelSearchSelectedIndex;
+  }
+  onChannelSearchSelectedIndex(index) {
+    this.channelSearchSelectedIndex = index;
     this.emit("CHANGE");
   }
 
