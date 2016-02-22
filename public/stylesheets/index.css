@@ -24,8 +24,10 @@ body {
 }
 
 .message {
-  border: 1px solid gray;
+  box-shadow: 6px 6px 5px rgba(0,0,0,0.3);
+  border-radius: 5px;
   padding: 4px;
+  margin: 6px;
   background: #EEE;
 }
 

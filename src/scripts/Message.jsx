@@ -8,14 +8,16 @@ class Message extends React.Component {
   render() {
     return(
       <li className="message">
-          <div className="icon">
-            <img src={this.props.iconUrl} />
+          <div className="messageHeader">
+            <img className="icon" src={this.props.iconUrl} />
+            <span className="name">
+              {this.props.name}
+            </span>
           </div>
-          <div className="name">
-            {this.props.name}
-          </div>
-          <div className="text">
-            {this.props.content}
+          <div className="messageContent">
+            <div className="text">
+              {this.props.content}
+            </div>
           </div>
       </li>
     );
