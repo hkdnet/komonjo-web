@@ -15,7 +15,7 @@ html {
 }
 body {
   background: #DDD;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
 }
 #container {
@@ -38,5 +38,5 @@ body {
   border: 0 1px 1px 1px gray solid;
 }
 .searchResult.selected {
-  background: blue;
+  background: #B2DBBF;
 }
