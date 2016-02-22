@@ -1,5 +1,6 @@
 const EventEmitter  = require('events').EventEmitter;
-const Client = require('./KomonjoClient.js')
+const Client = require('./KomonjoClient.js');
+const _ = require('lodash');
 
 class Store extends EventEmitter {
   constructor(dispatcher) {
@@ -18,6 +19,8 @@ class Store extends EventEmitter {
     dispatcher.on("changeMessages", this.onChangeMessages.bind(this));
     this.isWaitingMessage = false;
     dispatcher.on("changeIsWaitingMessages", this.onChangeIsWaitingMessage.bind(this));
+    this.isSearchingChannel = false;
+    dispatcher.on("changeIsSearchingChannel", this.onChangeIsSearchingChannel.bind(this));
 
     /* init */
     this.dispatcher = dispatcher;
@@ -46,8 +49,10 @@ class Store extends EventEmitter {
   }
   onChangeSelectedChannel(channel) {
     this.selectedChannel = channel;
-    if (channel === this.getDefaultChannel()) {
-      this.dispatcher.emit("changeMessages", []);
+    if (!_.chain(this.getChannels())
+          .map((e)=> e.name)
+          .includes(this.selectedChannel)
+          .value()) {
       this.emit("CHANGE");
       return;
     }
@@ -72,6 +77,14 @@ class Store extends EventEmitter {
   }
   onChangeIsWaitingMessage(isWaitingMessage) {
     this.isWaitingMessage = isWaitingMessage;
+    this.emit("CHANGE");
+  }
+
+  getIsSearchingChannel() {
+    return this.isSearchingChannel;
+  }
+  onChangeIsSearchingChannel(isSearchingChannel) {
+    this.isSearchingChannel = isSearchingChannel;
     this.emit("CHANGE");
   }
 }

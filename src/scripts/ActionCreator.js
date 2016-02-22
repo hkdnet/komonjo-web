@@ -8,6 +8,9 @@ class ActionCreator {
   changeSelectedChannel(data) {
     this.dispatcher.emit("changeSelectedChannel", data);
   }
+  changeIsSearchingChannel(data) {
+    this.dispatcher.emit("changeIsSearchingChannel", data);
+  }
 }
 
 module.exports = ActionCreator

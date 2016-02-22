@@ -5,39 +5,56 @@ class ChannelList extends React.Component {
     super(props);
     this.store = this.props.store;
     this.action = this.props.action;
-    this.state = { channels: [] };
+    this.state = {
+      channels: this.store.getChannels(),
+      selectedChannel: this.store.getSelectedChannel(),
+      isSearchingChannel: this.store.getIsSearchingChannel()
+    };
     this.store.on("CHANGE", ()=> {
       this.setState({
         channels: this.store.getChannels(),
-        selectedChannel: this.store.getSelectedChannel()
+        selectedChannel: this.store.getSelectedChannel(),
+        isSearchingChannel: this.store.getIsSearchingChannel()
       });
     })
   }
 
   render() {
     return(
-      <select ref="channel" onChange={this.onChangeHandler.bind(this)}>
-        <option key={-1} value={this.store.getDefaultChannel()}>
-          {this.store.getDefaultChannel()}
-        </option>
-        {this.channelDoms()}
-      </select>
+      <div>
+        <input ref="searchBox"
+          onFocus={this.onSearchBoxFocusHandler.bind(this)}
+          onChange={this.onSearchBoxChangeHandler.bind(this)}
+          value={this.state.selectedChannel} />
+        <div className={!this.state.isSearchingChannel && "hidden"}>
+          {this.channelDoms()}
+        </div>
+      </div>
     );
   }
 
   channelDoms() {
     return this.state.channels.map((e, i)=> {
       return (
-        <option key={i} value={e.name}>
+        <div key={i} onClick={this.onChannelClickHandler.bind(this)}>
           {e.name}
-        </option>
+        </div>
       )
     })
   }
 
-  onChangeHandler() {
-    let channel = this.refs.channel;
-    this.action.changeSelectedChannel(channel.value);
+  onSearchBoxFocusHandler() {
+    this.action.changeIsSearchingChannel(true);
+  }
+  onSearchBoxChangeHandler(e) {
+    this.action.changeSelectedChannel(e.target.value);
+  }
+
+  onChannelClickHandler(e) {
+    let channel = e.target.innerText;
+    this.action.changeIsSearchingChannel(false);
+    this.action.changeSelectedChannel(channel);
+    this.refs.searchBox.blur();
   }
 }
 
