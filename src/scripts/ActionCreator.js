@@ -11,6 +11,9 @@ class ActionCreator {
   changeIsSearchingChannel(data) {
     this.dispatcher.emit("changeIsSearchingChannel", data);
   }
+  changeChannelSearchKeyword(data) {
+    this.dispatcher.emit("changeChannelSearchKeyword", data);
+  }
 }
 
 module.exports = ActionCreator

@@ -8,13 +8,15 @@ class Store extends EventEmitter {
 
     /* constants */
     this.apiUrl = "http://192.168.99.100";
-    this.defaultChannel = "---";
+    this.defaultChannel = "";
 
     /* variables */
     this.channels = [];
     dispatcher.on("changeChannels", this.onChangeChannels.bind(this));
     this.selectedChannel = this.getDefaultChannel();
     dispatcher.on("changeSelectedChannel", this.onChangeSelectedChannel.bind(this));
+    this.channelSearchKeyword = this.getDefaultChannel();
+    dispatcher.on("changeChannelSearchKeyword", this.onChangeChannelSearchKeyword.bind(this));
     this.messages = [];
     dispatcher.on("changeMessages", this.onChangeMessages.bind(this));
     this.isWaitingMessage = false;
@@ -35,12 +37,24 @@ class Store extends EventEmitter {
   }
 
   getChannels() {
-    return this.channels;
+    let keyword = this.getChannelSearchKeyword();
+    let pattern = new RegExp(keyword.split('').join('(?:.*)'), 'i');
+    return  _
+      .chain(this.channels)
+      .filter((channel)=> pattern.test(channel.name))
+      .value();
   }
   onChangeChannels(channels) {
     this.channels = channels.map((name)=> {
       return { name: name }
     });
+    this.emit("CHANGE");
+  }
+  getChannelSearchKeyword() {
+    return this.channelSearchKeyword;
+  }
+  onChangeChannelSearchKeyword(keyword) {
+    this.channelSearchKeyword = keyword;
     this.emit("CHANGE");
   }
 

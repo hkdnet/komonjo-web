@@ -7,12 +7,14 @@ class ChannelList extends React.Component {
     this.action = this.props.action;
     this.state = {
       channels: this.store.getChannels(),
+      channelSearchKeyword: this.store.getChannelSearchKeyword(),
       selectedChannel: this.store.getSelectedChannel(),
       isSearchingChannel: this.store.getIsSearchingChannel()
     };
     this.store.on("CHANGE", ()=> {
       this.setState({
         channels: this.store.getChannels(),
+        channelSearchKeyword: this.store.getChannelSearchKeyword(),
         selectedChannel: this.store.getSelectedChannel(),
         isSearchingChannel: this.store.getIsSearchingChannel()
       });
@@ -25,7 +27,7 @@ class ChannelList extends React.Component {
         <input ref="searchBox"
           onFocus={this.onSearchBoxFocusHandler.bind(this)}
           onChange={this.onSearchBoxChangeHandler.bind(this)}
-          value={this.state.selectedChannel} />
+          value={this.state.channelSearchKeyword} />
         <div className={!this.state.isSearchingChannel && "hidden"}>
           {this.channelDoms()}
         </div>
@@ -44,16 +46,18 @@ class ChannelList extends React.Component {
   }
 
   onSearchBoxFocusHandler() {
+    this.action.changeChannelSearchKeyword('');
     this.action.changeIsSearchingChannel(true);
   }
   onSearchBoxChangeHandler(e) {
-    this.action.changeSelectedChannel(e.target.value);
+    this.action.changeChannelSearchKeyword(e.target.value);
   }
 
   onChannelClickHandler(e) {
     let channel = e.target.innerText;
     this.action.changeIsSearchingChannel(false);
     this.action.changeSelectedChannel(channel);
+    this.action.changeChannelSearchKeyword(channel);
     this.refs.searchBox.blur();
   }
 }
