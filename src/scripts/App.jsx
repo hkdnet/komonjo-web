@@ -12,7 +12,7 @@ let client = new Client(store.getApiUrl());
 client.channels().done((data)=>{
   action.changeChannels(data);
 });
-const ChannelList = require('./ChannelList.jsx');
+const ChannelSearchBox = require('./ChannelSearchBox.jsx');
 const MessageList = require('./MessageList.jsx');
 
 class App extends React.Component {
@@ -27,7 +27,7 @@ class App extends React.Component {
   render() {
     return(
       <div className='app'>
-        <ChannelList action={action} store={store} client={client}/>
+        <ChannelSearchBox action={action} store={store} client={client}/>
         <MessageList action={action} store={store} />
       </div>
     );

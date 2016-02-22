@@ -1,6 +1,6 @@
 const React = require('react');
 
-class ChannelList extends React.Component {
+class ChannelSearchBox extends React.Component {
   constructor(props) {
     super(props);
     this.store = this.props.store;
@@ -110,4 +110,4 @@ class ChannelList extends React.Component {
   }
 }
 
-module.exports = ChannelList
+module.exports = ChannelSearchBox
