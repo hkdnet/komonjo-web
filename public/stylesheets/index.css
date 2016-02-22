@@ -7,8 +7,16 @@
   display: none;
 }
 
+html {
+  font-size: 62.5%;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 body {
   background: #DDD;
+  font-size: 1.2rem;
+  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
 }
 #container {
   width: 600px;
@@ -23,4 +31,9 @@ body {
 
 .messages {
   list-style: none;
+}
+
+.searchResult {
+  background: #EEE;
+  border: 0 1px 1px 1px gray solid;
 }
