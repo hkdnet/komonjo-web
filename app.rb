@@ -7,16 +7,20 @@ require 'json'
 # App
 class App < Sinatra::Base
   configure :development do
-    Dotenv.load if %w(development test).include?(ENV['RACK_ENV'])
+    Dotenv.load
     register Sinatra::Reloader
   end
 
-  def api_token
-    ENV['KOMONJO_SLACK_API_TOKEN']
+  def komonjo_config
+    if ENV['KOMONJO_DEBUG'] == 'TRUE'
+      { debug: true }
+    else
+      { token: ENV['KOMONJO_SLACK_API_TOKEN'] }
+    end
   end
 
   def client
-    @client ||= Komonjo::Client.new(token: api_token)
+    @client ||= Komonjo::Client.new(komonjo_config)
   end
 
   get '/api/channels' do
