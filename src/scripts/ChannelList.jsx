@@ -28,6 +28,7 @@ class ChannelList extends React.Component {
           onFocus={this.onSearchBoxFocusHandler.bind(this)}
           onBlur={this.onSearchBoxBlurHandler.bind(this)}
           onChange={this.onSearchBoxChangeHandler.bind(this)}
+          onKeyDown={this.onSearchBoxKeyDownHandler.bind(this)}
           value={this.state.channelSearchKeyword} />
         <div className={!this.state.isSearchingChannel && "hidden"}>
           {this.channelDoms()}
@@ -58,6 +59,16 @@ class ChannelList extends React.Component {
   }
   onSearchBoxChangeHandler(e) {
     this.action.changeChannelSearchKeyword(e.target.value);
+  }
+  onSearchBoxKeyDownHandler(e) {
+    // Enter
+    if(e.keyCode == 13 && this.state.channels.length == 1) {
+      let channel = this.state.channels[0].name;
+      this.action.changeIsSearchingChannel(false);
+      this.action.changeSelectedChannel(channel);
+      this.action.changeChannelSearchKeyword(channel);
+      this.refs.searchBox.blur();
+    }
   }
 
   onChannelClickHandler(e) {
