@@ -1,6 +1,11 @@
 body {
   background: #DDD;
 }
+
+#container {
+  width: 600px;
+  margin: 30px auto 40px;
+}
 .hidden {
   display: none;
 }
@@ -8,9 +13,6 @@ body {
   border: 1px solid gray;
   padding: 4px;
   background: #EEE;
-}
-ul {
-  padding: 0;
 }
 
 .messages {
