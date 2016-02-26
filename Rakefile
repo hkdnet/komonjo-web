@@ -6,6 +6,11 @@ namespace :api do
     `eval $(docker-machine env komonjo) && docker-compose up -d`
   end
 
+  task :stop do
+    Dotenv.load
+    `eval $(docker-machine env komonjo) && docker-compose kill`
+  end
+
   task :debug do
     Dotenv.load
     `eval $(docker-machine env komonjo) && export KOMONJO_DEBUG=TRUE && docker-compose up -d`
