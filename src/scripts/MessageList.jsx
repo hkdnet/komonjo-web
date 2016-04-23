@@ -24,7 +24,7 @@ class MessageList extends React.Component {
     return(
       <div>
         <div className="title">
-          {this.state.selectedChannel}
+          {this.state.selectedChannel && "#" + this.state.selectedChannel}
         </div>
         <div className={!this.state.isWaitingMessage && "is-hidden"}>
           <i className="fa fa-spinner fa-spin fa-3x" />
