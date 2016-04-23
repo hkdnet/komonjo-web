@@ -21,6 +21,7 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "bluebird": "^3.1.1",
+    "bulma": "0.0.24",
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "jquery": "^2.2.0",
