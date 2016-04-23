@@ -25,15 +25,20 @@ class ChannelSearchBox extends React.Component {
 
   render() {
     return(
-      <div>
-        <input ref="searchBox"
-          onFocus={this.onSearchBoxFocusHandler.bind(this)}
-          onBlur={this.onSearchBoxBlurHandler.bind(this)}
-          onChange={this.onSearchBoxChangeHandler.bind(this)}
-          onKeyDown={this.onSearchBoxKeyDownHandler.bind(this)}
-          value={this.state.channelSearchKeyword} />
-        <div className={!this.state.isSearchingChannel && "hidden"}>
-          {this.channelDoms()}
+      <div className="control is-horizontal">
+        <div className="control-label">
+          <label className="label">channel</label>
+        </div>
+        <div className="control">
+          <input ref="searchBox" className="input" placeholder="channel name..."
+            onFocus={this.onSearchBoxFocusHandler.bind(this)}
+            onBlur={this.onSearchBoxBlurHandler.bind(this)}
+            onChange={this.onSearchBoxChangeHandler.bind(this)}
+            onKeyDown={this.onSearchBoxKeyDownHandler.bind(this)}
+            value={this.state.channelSearchKeyword} />
+          <div className={!this.state.isSearchingChannel && "is-hidden"}>
+            {this.channelDoms()}
+          </div>
         </div>
       </div>
     );
