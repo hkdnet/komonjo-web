@@ -25,20 +25,21 @@ class ChannelSearchBox extends React.Component {
 
   render() {
     return(
-      <div className="control is-horizontal">
-        <div className="control-label">
-          <label className="label">channel</label>
-        </div>
-        <div className="control">
+      <div>
+        <label className="label">channel</label>
+        <div className="control has-icon">
           <input ref="searchBox" className="input" placeholder="channel name..."
             onFocus={this.onSearchBoxFocusHandler.bind(this)}
             onBlur={this.onSearchBoxBlurHandler.bind(this)}
             onChange={this.onSearchBoxChangeHandler.bind(this)}
             onKeyDown={this.onSearchBoxKeyDownHandler.bind(this)}
             value={this.state.channelSearchKeyword} />
-          <div className={!this.state.isSearchingChannel && "is-hidden"}>
+          <i className="fa fa-slack"></i>
+        </div>
+        <div className="control">
+          <nav className={this.state.isSearchingChannel ? "panel" : "is-hidden"}>
             {this.channelDoms()}
-          </div>
+          </nav>
         </div>
       </div>
     );
@@ -46,18 +47,24 @@ class ChannelSearchBox extends React.Component {
 
   channelDoms() {
     return this.state.channels.map((e, i)=> {
-      let className = "searchResult";
+      let className = "panel-block ";
+      let isSelected = i == this.store.channelSearchSelectedIndex;
       if(i == this.store.channelSearchSelectedIndex) {
-        className += " selected";
+        className += " is-active";
       }
       return (
-        <div key={i}
-             data-idx={i}
-             className={className}
-             onClick={this.onChannelClickHandler.bind(this)}
-             onMouseOver={this.onChannelMouseOverHandler.bind(this)}>
+        <a
+          href="#"
+          key={i}
+          data-idx={i}
+          className={className}
+          onClick={this.onChannelClickHandler.bind(this)}
+          onMouseOver={this.onChannelMouseOverHandler.bind(this)}>
+          <span className="panel-icon">
+            <i className="fa fa-slack"></i>
+          </span>
           {e.name}
-        </div>
+        </a>
       )
     })
   }
