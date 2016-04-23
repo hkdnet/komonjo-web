@@ -55,6 +55,7 @@ class ChannelSearchBox extends React.Component {
       return (
         <a
           href="#"
+          tabIndex="-1"
           key={i}
           data-idx={i}
           className={className}
