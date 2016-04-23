@@ -23,13 +23,13 @@ class MessageList extends React.Component {
   render() {
     return(
       <div>
-        <div>
+        <div className="title">
           {this.state.selectedChannel}
         </div>
-        <div className={!this.state.isWaitingMessage && "hidden"}>
+        <div className={!this.state.isWaitingMessage && "is-hidden"}>
           <i className="fa fa-spinner fa-spin fa-3x" />
         </div>
-        <div className={this.state.isWaitingMessage && "hidden"}>
+        <div className={this.state.isWaitingMessage && "is-hidden"}>
           <ul className="messages">
             {this.messageDoms()}
           </ul>
