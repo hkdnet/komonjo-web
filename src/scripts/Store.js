@@ -25,6 +25,8 @@ class Store extends EventEmitter {
     dispatcher.on("changeIsWaitingMessages", this.onChangeIsWaitingMessage.bind(this));
     this.isSearchingChannel = false;
     dispatcher.on("changeIsSearchingChannel", this.onChangeIsSearchingChannel.bind(this));
+    this.selectedMessages = {};
+    dispatcher.on("changeIsSelected", this.onChangeIsSelected.bind(this));
 
     /* init */
     this.dispatcher = dispatcher;
@@ -109,6 +111,15 @@ class Store extends EventEmitter {
   }
   onChangeIsSearchingChannel(isSearchingChannel) {
     this.isSearchingChannel = isSearchingChannel;
+    this.emit("CHANGE");
+  }
+
+  getIsSelected(key) {
+    return !!this.selectedMessages[key];
+  }
+  onChangeIsSelected(data) {
+    let key = data.key;
+    this.selectedMessages[key] = !this.selectedMessages[key];
     this.emit("CHANGE");
   }
 }

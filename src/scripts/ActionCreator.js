@@ -17,6 +17,9 @@ class ActionCreator {
   changeChannelSearchSelectedIndex(data) {
     this.dispatcher.emit("changeChannelSearchSelectedIndex", data)
   }
+  changeIsSelected(data) {
+    this.dispatcher.emit("changeIsSelected", data)
+  }
 }
 
 module.exports = ActionCreator

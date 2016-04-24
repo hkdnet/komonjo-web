@@ -42,9 +42,12 @@ class MessageList extends React.Component {
     return this.state.messages.map((e, i)=> {
       return (
         <Message key={i}
+                 messageId={i}
                  iconUrl={e.user.profile.image_48}
                  name={e.user.name}
                  content={e.text}
+                 action={this.props.action}
+                 store={this.props.store}
                  />
       )
     })
