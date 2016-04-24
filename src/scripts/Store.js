@@ -26,8 +26,12 @@ class Store extends EventEmitter {
     this.isSearchingChannel = false;
     dispatcher.on("changeIsSearchingChannel", this.onChangeIsSearchingChannel.bind(this));
     this.selectedMessages = [];
-    dispatcher.on("changeIsSelected", this.onChangeIsSelected.bind(this));
     this.selectedMessagesText = "";
+    dispatcher.on("changeIsSelected", this.onChangeIsSelected.bind(this));
+    this.isShowNotification = false;
+    this.notificationClassname = "is-info";
+    this.notificationText = "";
+    dispatcher.on("changeNotification", this.onChangeNotification.bind(this));
 
     /* init */
     this.dispatcher = dispatcher;
@@ -119,6 +123,9 @@ class Store extends EventEmitter {
   getIsSelected(key) {
     return this.selectedMessages.some((e)=> e.key == key);
   }
+  getSelectedMessageText() {
+    return this.selectedMessages.map((e)=> this.messages[e.key].markdown).join("\n\n");
+  }
   onChangeIsSelected(data) {
     let key = data.key;
     let idx = -1;
@@ -136,8 +143,20 @@ class Store extends EventEmitter {
     this.emit("CHANGE");
   }
 
-  getSelectedMessageText() {
-    return this.selectedMessages.map((e)=> this.messages[e.key].markdown).join("\n\n");
+  getIsShowNotification() {
+    return this.isShowNotification
+  }
+  getNotificationClassName() {
+    return this.notificationClassname;
+  }
+  getNotificationText() {
+    return this.notificationText;
+  }
+  onChangeNotification(data) {
+    this.isShowNotification = data.isShowNotification;
+    this.notificationClassname = data.notificationClassname || 'is-info';
+    this.notificationText = data.notificationText || '';
+    this.emit("CHANGE");
   }
 }
 

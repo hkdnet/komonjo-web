@@ -33,9 +33,9 @@ class MessageList extends React.Component {
           <div className="column is-one-quarter">
             <CopyToClipboard
               text={this.state.copyText}
-              onCopy={() => console.log("copied")}>
+              onCopy={this.onHandleCopyButtonClick.bind(this)}>
               <button className="button is-success">
-                Copy selected messages as markdown
+                Copy
               </button>
             </CopyToClipboard>
           </div>
@@ -65,6 +65,18 @@ class MessageList extends React.Component {
                  />
       )
     })
+  }
+
+  onHandleCopyButtonClick() {
+    this.action.changeNotification({
+      isShowNotification: true,
+      notificationText: "Copied!",
+    });
+    setTimeout(()=> {
+      this.action.changeNotification({
+        isShowNotification: false,
+      });
+    }, 3000);
   }
 }
 

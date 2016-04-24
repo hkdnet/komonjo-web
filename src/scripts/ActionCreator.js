@@ -20,6 +20,9 @@ class ActionCreator {
   changeIsSelected(data) {
     this.dispatcher.emit("changeIsSelected", data)
   }
+  changeNotification(data) {
+    this.dispatcher.emit("changeNotification", data)
+  }
 }
 
 module.exports = ActionCreator

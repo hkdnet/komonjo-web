@@ -18,22 +18,25 @@ const Header = require('./Header.jsx');
 const ChannelSearchBox = require('./ChannelSearchBox.jsx');
 const MessageList = require('./MessageList.jsx');
 const Footer = require('./Footer.jsx');
+const Notification = require('./Notification.jsx');
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedChannel: store.getSelectedChannel()
-    }
-
-  }
-
   render() {
     return(
       <div className='app'>
         <Header></Header>
         <div className="section">
-          <ChannelSearchBox action={action} store={store} client={client}/>
+          <div className="columns">
+            <ChannelSearchBox
+              className="column is-half"
+              action={action}
+              store={store}
+              client={client} />
+            <Notification
+              className="column is-half"
+              action={action}
+              store={store} />
+          </div>
           <MessageList action={action} store={store} />
         </div>
         <Footer></Footer>

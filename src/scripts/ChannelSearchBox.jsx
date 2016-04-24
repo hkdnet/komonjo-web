@@ -25,7 +25,7 @@ class ChannelSearchBox extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="column is-half">
         <label className="label">channel</label>
         <div className="control has-icon">
           <input ref="searchBox" className="input" placeholder="channel name..."
