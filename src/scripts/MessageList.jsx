@@ -1,5 +1,6 @@
 const React = require('react');
-const Message = require('./Message.jsx')
+const Message = require('./Message.jsx');
+const CopyToClipboard = require('react-copy-to-clipboard');
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -9,13 +10,15 @@ class MessageList extends React.Component {
     this.state = {
       messages: this.store.getMessages(),
       selectedChannel: this.store.getSelectedChannel(),
-      isWaitingMessage: this.store.getIsWaitingMessage()
+      isWaitingMessage: this.store.getIsWaitingMessage(),
+      copyText: this.store.getSelectedMessageText()
     };
     this.store.on("CHANGE", ()=> {
       this.setState({
         messages: this.store.getMessages(),
         selectedChannel: this.store.getSelectedChannel(),
-        isWaitingMessage: this.store.getIsWaitingMessage()
+        isWaitingMessage: this.store.getIsWaitingMessage(),
+        copyText: this.store.getSelectedMessageText()
       });
     });
   }
@@ -23,8 +26,19 @@ class MessageList extends React.Component {
   render() {
     return(
       <div>
-        <div className="title">
-          {this.state.selectedChannel && "#" + this.state.selectedChannel}
+        <div className={this.state.selectedChannel ? "columns" : "is-hidden"}>
+          <div className="title column is-three-quarter">
+            {this.state.selectedChannel && "#" + this.state.selectedChannel}
+          </div>
+          <div className="column is-one-quarter">
+            <CopyToClipboard
+              text={this.state.copyText}
+              onCopy={() => console.log("copied")}>
+              <button className="button is-success">
+                Copy selected messages as markdown
+              </button>
+            </CopyToClipboard>
+          </div>
         </div>
         <div className={!this.state.isWaitingMessage && "is-hidden"}>
           <i className="fa fa-spinner fa-spin fa-3x" />

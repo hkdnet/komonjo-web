@@ -25,8 +25,9 @@ class Store extends EventEmitter {
     dispatcher.on("changeIsWaitingMessages", this.onChangeIsWaitingMessage.bind(this));
     this.isSearchingChannel = false;
     dispatcher.on("changeIsSearchingChannel", this.onChangeIsSearchingChannel.bind(this));
-    this.selectedMessages = {};
+    this.selectedMessages = [];
     dispatcher.on("changeIsSelected", this.onChangeIsSelected.bind(this));
+    this.selectedMessagesText = "";
 
     /* init */
     this.dispatcher = dispatcher;
@@ -87,7 +88,7 @@ class Store extends EventEmitter {
       this.dispatcher.emit("changeMessages", data);
       this.dispatcher.emit("changeIsWaitingMessages", false);
     });
-    this.selectedMessages = {};
+    this.selectedMessages = [];
     this.emit("CHANGE");
   }
 
@@ -116,12 +117,27 @@ class Store extends EventEmitter {
   }
 
   getIsSelected(key) {
-    return !!this.selectedMessages[key];
+    return this.selectedMessages.some((e)=> e.key == key);
   }
   onChangeIsSelected(data) {
     let key = data.key;
-    this.selectedMessages[key] = !this.selectedMessages[key];
+    let idx = -1;
+    for(let i = 0, len = this.selectedMessages.length; i < len; i += 1) {
+      if(this.selectedMessages[i].key == key) {
+        idx = i;
+        break;
+      }
+    }
+    if (idx == -1) { // Not found
+      this.selectedMessages.push(data);
+    } else {
+      this.selectedMessages.splice(idx, 1);
+    }
     this.emit("CHANGE");
+  }
+
+  getSelectedMessageText() {
+    return this.selectedMessages.map((e)=> this.messages[e.key].markdown).join("\n\n");
   }
 }
 
