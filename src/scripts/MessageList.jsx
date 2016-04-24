@@ -24,6 +24,10 @@ class MessageList extends React.Component {
   }
 
   render() {
+    let buttonClassname = "button is-success is-right";
+    if (!this.state.copyText) {
+      buttonClassname += " is-disabled"
+    }
     return(
       <div>
         <div className={this.state.selectedChannel ? "columns" : "is-hidden"}>
@@ -34,7 +38,7 @@ class MessageList extends React.Component {
             <CopyToClipboard
               text={this.state.copyText}
               onCopy={this.onHandleCopyButtonClick.bind(this)}>
-              <button className="button is-success">
+              <button className={buttonClassname}>
                 Copy
               </button>
             </CopyToClipboard>
