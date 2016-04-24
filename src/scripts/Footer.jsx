@@ -5,7 +5,7 @@ class Footer extends React.Component {
     return (
       <footer className="footer">
         <div className="container">
-          <div className="content is-centered">
+          <div className="content has-text-centered">
             <p>
               <strong>Komonjo</strong> by
                 hkdnet
