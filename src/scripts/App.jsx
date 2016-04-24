@@ -6,8 +6,10 @@ const Store = require("./Store.js");
 const Client = require('./KomonjoClient.js')
 
 let dispatcher = new EventEmitter();
+dispatcher.setMaxListeners(0);
 let action = new ActionCreator(dispatcher);
 let store = new Store(dispatcher);
+store.setMaxListeners(0);
 let client = new Client(store.getApiUrl());
 client.channels().done((data)=>{
   action.changeChannels(data);
