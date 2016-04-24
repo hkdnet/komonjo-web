@@ -41,7 +41,7 @@ class Message extends React.Component {
           </div>
           <div className="media-right">
             <div className="image is-24x24">
-              <i className={this.state.isSelected && "fa fa-check button is-success"}></i>
+              <i className={this.state.isSelected && "fa fa-check button is-success is-outlined"}></i>
             </div>
           </div>
         </article>

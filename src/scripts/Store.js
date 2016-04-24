@@ -87,6 +87,7 @@ class Store extends EventEmitter {
       this.dispatcher.emit("changeMessages", data);
       this.dispatcher.emit("changeIsWaitingMessages", false);
     });
+    this.selectedMessages = {};
     this.emit("CHANGE");
   }
 
