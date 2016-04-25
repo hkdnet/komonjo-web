@@ -100,7 +100,7 @@ class Store extends EventEmitter {
     return this.messages;
   }
   onChangeMessages(messages) {
-    this.messages = messages;
+    this.messages = messages.reverse();
     this.emit("CHANGE");
   }
 
