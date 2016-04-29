@@ -88,7 +88,7 @@ class Store extends EventEmitter {
       return;
     }
     this.dispatcher.emit("changeIsWaitingMessages", true);
-    this.client.messages(channel).done((data)=>{
+    this.client.messages({ channelName: channel}).done((data)=>{
       this.dispatcher.emit("changeMessages", data);
       this.dispatcher.emit("changeIsWaitingMessages", false);
     });
