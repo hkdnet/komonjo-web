@@ -1,6 +1,7 @@
 /.bundle/
 /coverage/
 .env
+/vendor
 
 node_modules/
 public/scripts/bundle.js

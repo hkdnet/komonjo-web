@@ -38,8 +38,10 @@ class App < Sinatra::Base
       'Access-Control-Allow-Headers' => 'Content-Type',
       'Access-Control-Allow-Methods' => 'GET'
     )
-    channel_name = params[:channel_name]
-    client.messages(channel_name).to_json
+    opts = params.select do |k, _|
+      %w(channel_name count).include?(k)
+    end
+    client.messages(opts).to_json
   end
 
   get '/' do
