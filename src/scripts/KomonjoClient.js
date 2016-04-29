@@ -17,9 +17,14 @@ class KomonjoClient {
     })
   }
 
-  messages(channelName) {
+  messages(opts) {
+    if (typeof opts === "string") {
+      opts = { channelName: opts };
+    }
+    let channelName = opts.channelName;
+    let count = opts.count || 100;
     return $.get({
-      url: this.url + '/api/messages?channel_name=' + channelName,
+      url: this.url + '/api/messages?channel_name=' + channelName + '&count=' + count,
       dataType: 'JSON'
     })
   }
