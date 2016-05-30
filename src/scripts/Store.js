@@ -7,7 +7,7 @@ class Store extends EventEmitter {
     super();
 
     /* constants */
-    this.apiUrl = "http://192.168.99.100";
+    this.apiUrl = "http://localhost:4567";
     this.defaultChannel = "";
 
     /* variables */

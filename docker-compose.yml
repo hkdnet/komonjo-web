@@ -1,9 +1,9 @@
 komonjo:
   image: hkdnet/komonjo
   ports:
-    - "80:80"
+    - "4567:4567"
   environment:
     - RACK_ENV=development
     - KOMONJO_DEBUG=$KOMONJO_DEBUG
     - KOMONJO_SLACK_API_TOKEN=$KOMONJO_SLACK_API_TOKEN
-  command: rackup -p 80 -o 0.0.0.0
+  command: rackup -p 4567 -o 0.0.0.0
